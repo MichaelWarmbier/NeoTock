@@ -1,0 +1,25 @@
+# Dependency directories (Node.js)
+/node_modules
+
+# Compiled output directories
+/dist
+/build
+
+# Environment variables file
+.env
+
+# IDE or editor-specific files
+/.vscode
+/.idea
+/.vs
+
+# Log files
+*.log
+
+# Compiled TypeScript files
+"Compiled JavaScript/"
+**/*.js
+**/*.js.map
+
+# TypeScript declaration files
+*.d.ts
