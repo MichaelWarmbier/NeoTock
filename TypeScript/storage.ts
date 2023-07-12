@@ -1,24 +1,43 @@
-export enum clr {
-    Black = `\x1b[30m`,
-    Red = `\x1b[31m`,
-    Green = `\x1b[32m`,
-    Yellow = `\x1b[33m`,
-    Blue = `\x1b[34m`,
-    Purple = `\x1b[35m`,
-    Cyan = `\x1b[36m`,
-    White = `\x1b[37m`,
-}
+import * as blessed from 'blessed';
 
-export let NTClock = {
-    clockType: 'default',
-    clockColor: clr.White,
-    displayMS: false,
-    primaryZone: 0,
-    secondaryZone: 0,
-    secondClockActive: false,
-}
+/////////////////////////////
+/////* Blessed Objects */////
+/////////////////////////////
 
-export let NTalarm = {
+export const terminal = blessed.screen({ 
+    smartCSR: true,
+})
+
+export const boundingBox = blessed.box({
+    top: 'center',
+    left: 'center',
+    width: '100%',
+    height: '25%',
+  });
+  
+export let clockFace = blessed.text({
+    content: '',
+    top: 'center',
+    left: 'center',
+    style: {
+        fg: 'white',
+    },
+})
+
+export let clockStatus = blessed.text({
+    content: '',
+    bottom: 0,
+    left: 'center',
+    style: {
+        fg: 'white',
+    },
+})
+
+//////////////////////
+/////* App Data */////
+//////////////////////
+
+export let NTAlarm = {
     alarmSet: false,
     timerSet: false,
     alarmMet: true,
@@ -26,6 +45,15 @@ export let NTalarm = {
     alarmDismissed: true,
     timerStart: false,
     timerDuration:  0,
+}
+
+export let NTClock = {
+    clockType: 'default',
+    clockColor: 'white',
+    displaySeconds: false,
+    primaryZone: 0,
+    secondaryZone: 0,
+    secondClockActive: false,
 }
 
 export const dW:number = 10;
@@ -105,9 +133,16 @@ export let digits:string[][] =
     ],
     [
         "          ",
-        "    ██    ",
+        "   ██     ",
         "          ",
-        "    ██    ",
+        "   ██     ",
+        "          ",
+    ],
+    [
+        "          ",
+        "          ",
+        "          ",
+        "          ",
         "          ",
     ]
 ]

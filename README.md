@@ -6,4 +6,11 @@ This application was inspired heavily by [Tock by nwtnni](https://github.com/nwt
 
 ##### <p align="center">Proof of concept</p>
 
+## <p align="center">Package Dependencies </p>
+
+* Blessed v.0.1.81, TSv0.1.22
+* Typescript v5.1.6
+
+<hr>
+
 ### <p align="center">More information will be added as development continues. </p>

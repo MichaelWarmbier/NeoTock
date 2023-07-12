@@ -1,23 +1,30 @@
 import * as Neo from './methods';
 import * as blessed from 'blessed';
-import { color } from './methods'; 
+import * as data from './storage';
 
-Neo.setClockColor(color.Green)
+////////////////////////
+/////* Initialize */////
+////////////////////////
 
-const program = blessed.program();
-const screen = blessed.screen({ 
-    smartCSR: true,
-})
+process.stdout.write('\u001b[?25l');
+export let clock:boolean = false;
+data.terminal.on('keypress', () => {  });
+data.terminal.key(['C-c'], () => { process.exit(0); })
 
-screen.on('keypress', () => {  });
-screen.key(['C-c'], () => { process.exit(0); })
-program.hideCursor();
+Neo.updateClock();
+data.boundingBox.append(data.clockFace);
+data.boundingBox.append(data.clockStatus);
+data.terminal.append(data.boundingBox);
+data.terminal.render();
 
-const clockFace = blessed.text({
-    content: Neo.updateClock("4:45"),
-    top: 'center',
-    left: 'center',
-})
+////////////////////////
+/////* Clock Loop */////
+////////////////////////
 
-screen.append(clockFace);
-screen.render();
+Neo.setClockColor('blue');
+
+setInterval(function() {
+    clock = !clock;
+    Neo.updateClock();
+    data.boundingBox.screen.render();
+}, 1000)
