@@ -11,7 +11,7 @@ export const terminal = blessed.screen({
 export const boundingBox = blessed.box({
     top: 'center',
     left: 'center',
-    width: '100%',
+    width: '180%',
     height: '25%',
   });
   
@@ -50,10 +50,11 @@ export let NTAlarm = {
 export let NTClock = {
     clockType: 'default',
     clockColor: 'white',
-    displaySeconds: false,
-    primaryZone: 0,
+    displaySeconds: true,
+    primaryZone: 'America/New_York',
     secondaryZone: 0,
     secondClockActive: false,
+    militaryTime: false,
 }
 
 export const dW:number = 10;
@@ -78,14 +79,14 @@ export let digits:string[][] =
     [
         "████████  ",
         "      ██  ",
+        "████████  ",
+        "██        ",
+        "████████  ",
+    ],
+    [
+        "████████  ",
+        "      ██  ",
         "  ██████  ",
-        "██        ",
-        "████████  ",
-    ],
-    [
-        "████████  ",
-        "      ██  ",
-        "  ██████  ",
         "      ██  ",
         "████████  ",
     ],
@@ -113,9 +114,9 @@ export let digits:string[][] =
     [
         "████████  ",
         "      ██  ",
-        "    ██  "  ,
         "    ██    ",
         "    ██    ",
+        "    ██    ",
     ],
     [
         "████████  ",
@@ -132,17 +133,33 @@ export let digits:string[][] =
         "      ██  ",
     ],
     [
-        "          ",
-        "   ██     ",
-        "          ",
-        "   ██     ",
-        "          ",
+        "      ",
+        " ██   ",
+        "      ",
+        " ██   ",
+        "      ",
     ],
     [
-        "          ",
-        "          ",
-        "          ",
-        "          ",
-        "          ",
+        "      ",
+        "      ",
+        "      ",
+        "      ",
+        "      ",
+    ],
+    [
+        "                 ",
+        "██████ ████  ████",
+        "██  ██ ██  ██  ██",
+        "██████ ██      ██",
+        "██     ██      ██",
+        "                 ",
+    ],
+    [
+        "                 ",
+        "  ██   ████  ████",
+        "██  ██ ██  ██  ██",
+        "██████ ██      ██",
+        "██  ██ ██      ██",
+        
     ]
 ]

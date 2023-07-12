@@ -1,6 +1,7 @@
 import * as _ from './storage';
 import { NTClock, NTAlarm, clockFace, clockStatus } from './storage';
 import { clock } from './index'
+const mtz= require('moment-timezone');
 
 //////////////////////
 /////* Internal */////
@@ -20,10 +21,13 @@ function string2display(time:string) {
     let result = [];
     for (let char = 0; char < time.length; char++) { 
         if (time[char] == ':') {
-            if (clock) result.push(_.digits[10])
+            if (clock) result.push(_.digits[10]);
             else       result.push(_.digits[11]);
         }
-        else result.push(_.digits[parseInt(time[char])])
+        else if (time[char] == ' ') result.push(_.digits[11]);
+        else if (time[char] == 'P') { result.push(_.digits[12]); break; }
+        else if (time[char] == 'A') { result.push(_.digits[13]); break; }
+        else result.push(_.digits[parseInt(time[char])]);
     }
     return result;
 }
@@ -34,13 +38,16 @@ function string2display(time:string) {
 
 export function setClockColor(color: string) { NTClock.clockColor = color; }
 
-export function reportError(msg: string) { console.log(`\x1b[31m ERROR: \x1b[37m${msg}`); }
-
 export function updateClock() {
-    let currentTime: string[][] = string2display('0:00');
+    let format = `hh:mm${NTClock.displaySeconds ? ':ss' : ''} ${NTClock.militaryTime ? '' : 'A'}`; 
+    let displayTime:any = mtz().tz(NTClock.primaryZone).format(format);
+    let currentTime: string[][] = string2display(displayTime);
+
     let timerStatus = `Timer: ${NTAlarm.timerSet ? 'tba' : 'Not Set'}`;
     let alarmStatus = `Alarm: ${NTAlarm.timerSet ? 'tba' : 'Not Set'}`;
+    let todaysDate = mtz().tz(NTClock.primaryZone).format('dddd, MMMM Do, YYYY');
+
     clockFace.content = createTimeString(_.digits[0], ...currentTime);
     clockFace.style.fg = NTClock.clockColor;
-    clockStatus.content = `${timerStatus} | ${alarmStatus} | Tuesday July 7th, 2023`;
+    clockStatus.content = `${timerStatus} | ${alarmStatus} | ${todaysDate}`;
 }
