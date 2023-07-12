@@ -1,5 +1,6 @@
 import * as _ from './storage';
-import { NTClock, NTAlarm, clockFace, clockStatus } from './storage';
+import { NTClock, NTAlarm, clockFace, clockStatus, secondFace } from './storage';
+import { primaryLocation, secondaryLocation } from './storage'; 
 import { clock } from './index'
 const mtz= require('moment-timezone');
 
@@ -10,7 +11,7 @@ const mtz= require('moment-timezone');
 function createTimeString(...arr: string[][]) {
     let result: string = '';
     for (let i = 0; i < _.dH; i++) {
-        for (let j = 1; j < arr.length; j++)
+        for (let j = 0; j < arr.length; j++)
             result += arr[j][i];
         result += '\n';
     }
@@ -36,18 +37,32 @@ function string2display(time:string) {
 /////* External */////
 //////////////////////
 
-export function setClockColor(color: string) { NTClock.clockColor = color; }
-
 export function updateClock() {
-    let format = `hh:mm${NTClock.displaySeconds ? ':ss' : ''} ${NTClock.militaryTime ? '' : 'A'}`; 
+    // First Clock
+    let format = `${NTClock.militaryTime ? 'HH' : 'hh'}:mm${NTClock.displaySeconds ? ':ss' : ''} ${NTClock.militaryTime ? '' : 'A'}`; 
     let displayTime:any = mtz().tz(NTClock.primaryZone).format(format);
-    let currentTime: string[][] = string2display(displayTime);
+    let currentTime:string[][] = string2display(displayTime);
 
     let timerStatus = `Timer: ${NTAlarm.timerSet ? 'tba' : 'Not Set'}`;
     let alarmStatus = `Alarm: ${NTAlarm.timerSet ? 'tba' : 'Not Set'}`;
     let todaysDate = mtz().tz(NTClock.primaryZone).format('dddd, MMMM Do, YYYY');
 
-    clockFace.content = createTimeString(_.digits[0], ...currentTime);
+    clockFace.content = createTimeString(...currentTime);
     clockFace.style.fg = NTClock.clockColor;
-    clockStatus.content = `${timerStatus} | ${alarmStatus} | ${todaysDate}`;
+    primaryLocation.content = NTClock.primaryZone;
+
+    // Second Clock
+
+    if (NTClock.secondClockActive) {
+        displayTime = mtz().tz(NTClock.secondaryZone).format(format);
+        currentTime = string2display(displayTime);
+        secondFace.content = createTimeString(...currentTime);
+        secondFace.style.fg = NTClock.secondClockColor;
+        secondaryLocation.content = NTClock.secondaryZone;
+    }
+
+    // Alarm and Timer
+
+    clockStatus.content = ` ${timerStatus} | ${alarmStatus} | ${todaysDate} `;
+
 }

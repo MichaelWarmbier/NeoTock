@@ -13,8 +13,11 @@ data.terminal.on('keypress', () => {  });
 data.terminal.key(['C-c'], () => { process.exit(0); })
 
 Neo.updateClock();
+data.boundingBox.append(data.secondFace);
 data.boundingBox.append(data.clockFace);
 data.boundingBox.append(data.clockStatus);
+data.boundingBox.append(data.primaryLocation);
+data.boundingBox.append(data.secondaryLocation);
 data.terminal.append(data.boundingBox);
 data.terminal.render();
 
@@ -22,8 +25,6 @@ data.terminal.render();
 ////////////////////////
 /////* Clock Loop */////
 ////////////////////////
-
-Neo.setClockColor('blue');
 
 setInterval(function() {
     clock = !clock;

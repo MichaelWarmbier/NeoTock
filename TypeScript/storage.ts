@@ -1,37 +1,5 @@
 import * as blessed from 'blessed';
 
-/////////////////////////////
-/////* Blessed Objects */////
-/////////////////////////////
-
-export const terminal = blessed.screen({ 
-    smartCSR: true,
-})
-
-export const boundingBox = blessed.box({
-    top: 'center',
-    left: 'center',
-    width: '180%',
-    height: '25%',
-  });
-  
-export let clockFace = blessed.text({
-    content: '',
-    top: 'center',
-    left: 'center',
-    style: {
-        fg: 'white',
-    },
-})
-
-export let clockStatus = blessed.text({
-    content: '',
-    bottom: 0,
-    left: 'center',
-    style: {
-        fg: 'white',
-    },
-})
 
 //////////////////////
 /////* App Data */////
@@ -49,12 +17,14 @@ export let NTAlarm = {
 
 export let NTClock = {
     clockType: 'default',
-    clockColor: 'white',
+    clockColor: 'cyan',
+    secondClockColor: 'cyan',
     displaySeconds: true,
     primaryZone: 'America/New_York',
-    secondaryZone: 0,
-    secondClockActive: false,
+    secondaryZone: 'America/Chicago',
+    secondClockActive: true,
     militaryTime: false,
+    borderVisible: true,
 }
 
 export const dW:number = 10;
@@ -163,3 +133,64 @@ export let digits:string[][] =
         
     ]
 ]
+
+/////////////////////////////
+/////* Blessed Objects */////
+/////////////////////////////
+
+export const terminal = blessed.screen({ 
+    smartCSR: true,
+})
+
+export const boundingBox = blessed.box({
+    top: 'center',
+    left: 'center',
+    width: '170%',
+    height: NTClock.secondClockActive ? 24 : 10,
+    border: NTClock.borderVisible ? 'line' : 'bg',
+  });
+  
+export let clockFace = blessed.text({
+    content: '',
+    top: NTClock.secondClockActive ? '50%+1' : '50%-4',
+    left: 'center',
+    style: {
+        fg: 'white',
+    },
+})
+
+export let secondFace = blessed.text({
+    content: '',
+    top: '50%-10',
+    left: 'center',
+    style: {
+        fg: 'white',
+    },
+})
+
+export let primaryLocation = blessed.text({
+    content: '',
+    top: NTClock.secondClockActive ? '50%+7' : '50%+2',
+    left: 'center',
+    style: {
+        fg: 'white',
+    },
+})
+
+export let secondaryLocation = blessed.text({
+    content: '',
+    top: '50%-4',
+    left: 'center',
+    style: {
+        fg: 'white',
+    },
+})
+
+export let clockStatus = blessed.text({
+    content: '',
+    top: NTClock.secondClockActive ? '50%+10' : '50%+3',
+    left: 'center',
+    style: {
+        fg: 'white',
+    },
+})

@@ -2,7 +2,7 @@
 
 This application was inspired heavily by [Tock by nwtnni](https://github.com/nwtnni/tock). A digital clock housed entirely within the terminal, powered by [Blessed](https://github.com/chjj/blessed/blob/master/README.md#colors). 
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/1123424742259572776/1128548566986653716/image.png"></p>
+<p align="center"><img src="https://cdn.discordapp.com/attachments/865004452611227649/1128562776122589184/image.png"></p>
 
 ##### <p align="center">Current Appearance</p>
 
