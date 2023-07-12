@@ -145,7 +145,7 @@ export const terminal = blessed.screen({
 export const boundingBox = blessed.box({
     top: 'center',
     left: 'center',
-    width: '170%',
+    width: '200%',
     height: NTClock.secondClockActive ? 24 : 10,
     border: NTClock.borderVisible ? 'line' : 'bg',
   });
