@@ -1,6 +1,6 @@
 import * as _ from './storage';
 import { NTClock, NTAlarm, clockFace, clockStatus, secondFace } from './storage';
-import { primaryLocation, secondaryLocation } from './storage'; 
+import { primaryLocation, secondaryLocation, boundingBox } from './storage'; 
 import { clock } from './index'
 const mtz= require('moment-timezone');
 
@@ -37,7 +37,12 @@ function string2display(time:string) {
 /////* External */////
 //////////////////////
 
+export function printError(msg:string) {
+    console.log(`\u001b[31mERROR:\u001b[0m ${msg}`);
+}
+
 export function updateClock() {
+
     // First Clock
     let format = `${NTClock.militaryTime ? 'HH' : 'hh'}:mm${NTClock.displaySeconds ? ':ss' : ''} ${NTClock.militaryTime ? '' : 'A'}`; 
     let displayTime:any = mtz().tz(NTClock.primaryZone).format(format);
@@ -52,7 +57,6 @@ export function updateClock() {
     primaryLocation.content = NTClock.primaryZone;
 
     // Second Clock
-
     if (NTClock.secondClockActive) {
         displayTime = mtz().tz(NTClock.secondaryZone).format(format);
         currentTime = string2display(displayTime);
@@ -62,7 +66,6 @@ export function updateClock() {
     }
 
     // Alarm and Timer
-
     clockStatus.content = ` ${timerStatus} | ${alarmStatus} | ${todaysDate} `;
 
 }

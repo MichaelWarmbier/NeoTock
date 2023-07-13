@@ -1,6 +1,5 @@
 import * as blessed from 'blessed';
 
-
 //////////////////////
 /////* App Data */////
 //////////////////////
@@ -24,7 +23,7 @@ export let NTClock = {
     secondaryZone: 'America/Chicago',
     secondClockActive: true,
     militaryTime: false,
-    borderVisible: true,
+    borderVisible: false,
 }
 
 export const dW:number = 10;
@@ -138,59 +137,70 @@ export let digits:string[][] =
 /////* Blessed Objects */////
 /////////////////////////////
 
-export const terminal = blessed.screen({ 
-    smartCSR: true,
-})
+export let terminal:any;
+export let boundingBox:any;
+export let clockFace:any;
+export let secondFace:any;
+export let primaryLocation:any;
+export let secondaryLocation:any;
+export let clockStatus:any;
 
-export const boundingBox = blessed.box({
-    top: 'center',
-    left: 'center',
-    width: '200%',
-    height: NTClock.secondClockActive ? 24 : 10,
-    border: NTClock.borderVisible ? 'line' : 'bg',
-  });
-  
-export let clockFace = blessed.text({
-    content: '',
-    top: NTClock.secondClockActive ? '50%+1' : '50%-4',
-    left: 'center',
-    style: {
-        fg: 'white',
-    },
-})
+export function initializeDisplayElements() {
+    
+    terminal = blessed.screen({ 
+        smartCSR: true,
+    })
+      
+    clockFace = blessed.text({
+        content: '',
+        top: NTClock.secondClockActive ? '50%+1' : '50%-4',
+        left: 'center',
+        style: {
+            fg: 'white',
+        },
+    })
+    
+    secondFace = blessed.text({
+        content: '',
+        top: '50%-10',
+        left: 'center',
+        style: {
+            fg: 'white',
+        },
+    })
+    
+    primaryLocation = blessed.text({
+        content: '',
+        top: NTClock.secondClockActive ? '50%+7' : '50%+2',
+        left: 'center',
+        style: {
+            fg: 'white',
+        },
+    })
+    
+    secondaryLocation = blessed.text({
+        content: '',
+        top: '50%-4',
+        left: 'center',
+        style: {
+            fg: 'white',
+        },
+    })
+    
+    clockStatus = blessed.text({
+        content: '',
+        top: NTClock.secondClockActive ? '50%+10' : '50%+3',
+        left: 'center',
+        style: {
+            fg: 'white',
+        },
+    })
 
-export let secondFace = blessed.text({
-    content: '',
-    top: '50%-10',
-    left: 'center',
-    style: {
-        fg: 'white',
-    },
-})
-
-export let primaryLocation = blessed.text({
-    content: '',
-    top: NTClock.secondClockActive ? '50%+7' : '50%+2',
-    left: 'center',
-    style: {
-        fg: 'white',
-    },
-})
-
-export let secondaryLocation = blessed.text({
-    content: '',
-    top: '50%-4',
-    left: 'center',
-    style: {
-        fg: 'white',
-    },
-})
-
-export let clockStatus = blessed.text({
-    content: '',
-    top: NTClock.secondClockActive ? '50%+10' : '50%+3',
-    left: 'center',
-    style: {
-        fg: 'white',
-    },
-})
+    boundingBox = blessed.box({
+        top: 'center',
+        left: 'center',
+        width: '200%',
+        height: NTClock.secondClockActive ? 24 : 10,
+        border: NTClock.borderVisible ? 'line' : 'bg',
+      });
+}

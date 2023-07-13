@@ -1,33 +1,75 @@
 import * as Neo from './methods';
 import * as blessed from 'blessed';
 import * as data from './storage';
+import * as fs from 'fs';
 
 
 ////////////////////////
 /////* Initialize */////
 ////////////////////////
 
-process.stdout.write('\u001b[?25l');
 export let clock:boolean = false; 
-data.terminal.on('keypress', () => {  });
-data.terminal.key(['C-c'], () => { process.exit(0); })
 
-Neo.updateClock();
-data.boundingBox.append(data.secondFace);
-data.boundingBox.append(data.clockFace);
-data.boundingBox.append(data.clockStatus);
-data.boundingBox.append(data.primaryLocation);
-data.boundingBox.append(data.secondaryLocation);
-data.terminal.append(data.boundingBox);
-data.terminal.render();
+async function applyPreferences() {
+    fs.readFile('pref.json', 'utf8', (err, json) => {
+        if (err) { 
+            data.terminal.destroy()
+            Neo.printError("Unable to located 'pref.json.'"); 
+            process.exit(0);
+        }
+        try { const prefs = JSON.parse(json); }
+        catch (err) { 
+            data.terminal.destroy();
+            Neo.printError("Unable to read 'pref.json' file."); 
+            process.exit(0);
+        }
+        const prefs = JSON.parse(json);
+        data.NTClock.clockColor = prefs.primaryClockPreferences.COLOR;
+        data.NTClock.secondClockColor = prefs.secondaryClockPreferences.COLOR;
+        data.NTClock.displaySeconds = prefs.generalPreferences.secondsVisible;
+        data.NTClock.primaryZone = prefs.primaryClockPreferences.ZONE;
+        data.NTClock.secondaryZone = prefs.secondaryClockPreferences.ZONE;
+        data.NTClock.secondClockActive = prefs.generalPreferences.secondClockVisible;
+        data.NTClock.militaryTime = prefs.generalPreferences.militaryTime;
+        data.NTClock.borderVisible = prefs.generalPreferences.borderVisible; // Issue
+    })
+}
 
+async function initializeDisplay() {
+    process.stdout.write('\u001b[?25l');
+    data.terminal.on('keypress', () => {  });
+    data.terminal.key(['C-c'], () => { process.exit(0); })
+
+    data.boundingBox.append(data.secondFace);
+    data.boundingBox.append(data.clockFace);
+    data.boundingBox.append(data.clockStatus);
+    data.boundingBox.append(data.primaryLocation);
+    data.boundingBox.append(data.secondaryLocation);
+    data.terminal.append(data.boundingBox);
+    data.terminal.render();
+}
 
 ////////////////////////
 /////* Clock Loop */////
 ////////////////////////
 
-setInterval(function() {
-    clock = !clock;
-    Neo.updateClock();
-    data.boundingBox.screen.render();
-}, 1000)
+async function updateApp() {
+    setInterval(function() {
+        clock = !clock;
+        Neo.updateClock();
+        data.terminal.screen.render();
+    }, 1000)   
+}
+
+//////////////////
+/////* Main */////
+//////////////////
+
+async function main() {
+    await applyPreferences();
+    await data.initializeDisplayElements();
+    await initializeDisplay();
+    await updateApp();
+}
+
+main();
