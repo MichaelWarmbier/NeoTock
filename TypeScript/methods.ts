@@ -44,7 +44,7 @@ export function printError(msg:string) {
 }
 
 export function updateClock() {
-
+    
     // First Clock
     let format = `${NTClock.militaryTime ? 'HH' : 'hh'}:mm${NTClock.displaySeconds ? ':ss' : ''} ${NTClock.militaryTime ? '' : 'A'}`; 
     let displayTime:any = mtz().tz(NTClock.primaryZone).format(format);

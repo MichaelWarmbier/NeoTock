@@ -11,20 +11,19 @@ import * as fs from 'fs';
 export let clock:boolean = false; 
 
 async function applyPreferences() {
-    fs.readFile('pref.json', 'utf8', (err, json) => {
-        if (err) { Neo.printError("Unable to located 'pref.json.'"); }
-        try { const prefs = JSON.parse(json); }
-        catch (err) { Neo.printError("Unable to read 'pref.json' file."); }
-        const prefs = JSON.parse(json);
-        data.NTClock.clockColor = prefs.primaryClockPreferences.COLOR;
-        data.NTClock.secondClockColor = prefs.secondaryClockPreferences.COLOR;
-        data.NTClock.displaySeconds = prefs.generalPreferences.secondsVisible;
-        data.NTClock.primaryZone = prefs.primaryClockPreferences.ZONE;
-        data.NTClock.secondaryZone = prefs.secondaryClockPreferences.ZONE;
-        data.NTClock.secondClockActive = prefs.generalPreferences.secondClockVisible;
-        data.NTClock.militaryTime = prefs.generalPreferences.militaryTime;
-        data.NTClock.borderVisible = prefs.generalPreferences.borderVisible; // Issue
-    })
+    let prefs: any, json: any;
+    try { json = await fs.promises.readFile('pref.json', 'utf8'); } 
+    catch (err) { Neo.printError("'prefs.json can not be found."); }
+    try { prefs = JSON.parse(json); }
+    catch (err) { Neo.printError("'pref.json' is malformed."); }
+    data.NTClock.clockColor = prefs.primaryClockPreferences.COLOR;
+    data.NTClock.secondClockColor = prefs.secondaryClockPreferences.COLOR;
+    data.NTClock.displaySeconds = prefs.generalPreferences.secondsVisible;
+    data.NTClock.primaryZone = prefs.primaryClockPreferences.ZONE;
+    data.NTClock.secondaryZone = prefs.secondaryClockPreferences.ZONE;
+    data.NTClock.secondClockActive = prefs.generalPreferences.secondClockVisible;
+    data.NTClock.militaryTime = prefs.generalPreferences.militaryTime;
+    data.NTClock.borderVisible = prefs.generalPreferences.borderVisible;
 }
 
 async function initializeDisplay() {

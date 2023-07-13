@@ -1,16 +1,16 @@
 {
     "generalPreferences": {
-        "militaryTime": false,
-        "borderVisible": true,
+        "militaryTime": true,
+        "borderVisible": false,
         "secondsVisible": true,
-        "secondClockVisible": true
+        "secondClockVisible": false
     },
     "primaryClockPreferences": {
-        "COLOR": "#FFFFFF",
+        "COLOR": "#FF0000",
         "ZONE": "America/New_York"
     },
     "secondaryClockPreferences": {
-        "COLOR": "#FFFFFF",
+        "COLOR": "#00FF00",
         "ZONE": "America/Chicago"
     }
 }

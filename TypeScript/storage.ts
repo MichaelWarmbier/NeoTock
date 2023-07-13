@@ -83,9 +83,9 @@ export let digits:string[][] =
     [
         "████████  ",
         "      ██  ",
-        "    ██    ",
-        "    ██    ",
-        "    ██    ",
+        "      ██  ",
+        "      ██  ",
+        "      ██  ",
     ],
     [
         "████████  ",
@@ -145,7 +145,7 @@ export let primaryLocation:any;
 export let secondaryLocation:any;
 export let clockStatus:any;
 
-export function initializeDisplayElements() {
+export async function initializeDisplayElements() {
     
     terminal = blessed.screen({ 
         smartCSR: true,
