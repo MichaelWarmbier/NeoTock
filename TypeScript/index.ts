@@ -12,17 +12,9 @@ export let clock:boolean = false;
 
 async function applyPreferences() {
     fs.readFile('pref.json', 'utf8', (err, json) => {
-        if (err) { 
-            data.terminal.destroy()
-            Neo.printError("Unable to located 'pref.json.'"); 
-            process.exit(0);
-        }
+        if (err) { Neo.printError("Unable to located 'pref.json.'"); }
         try { const prefs = JSON.parse(json); }
-        catch (err) { 
-            data.terminal.destroy();
-            Neo.printError("Unable to read 'pref.json' file."); 
-            process.exit(0);
-        }
+        catch (err) { Neo.printError("Unable to read 'pref.json' file."); }
         const prefs = JSON.parse(json);
         data.NTClock.clockColor = prefs.primaryClockPreferences.COLOR;
         data.NTClock.secondClockColor = prefs.secondaryClockPreferences.COLOR;

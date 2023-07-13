@@ -1,6 +1,6 @@
 import * as _ from './storage';
 import { NTClock, NTAlarm, clockFace, clockStatus, secondFace } from './storage';
-import { primaryLocation, secondaryLocation, boundingBox } from './storage'; 
+import { primaryLocation, secondaryLocation, boundingBox, terminal } from './storage'; 
 import { clock } from './index'
 const mtz= require('moment-timezone');
 
@@ -38,7 +38,9 @@ function string2display(time:string) {
 //////////////////////
 
 export function printError(msg:string) {
+    terminal.destroy()
     console.log(`\u001b[31mERROR:\u001b[0m ${msg}`);
+    process.exit(0);
 }
 
 export function updateClock() {
