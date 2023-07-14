@@ -10,7 +10,8 @@ console.log('/a')
 /////* Initialize */////
 ////////////////////////
 
-export let clock:boolean = false; 
+export let clock:boolean = true; 
+let clockAllowed = true;
 
 async function applyPreferences() {
     let prefs: any, json: any;
@@ -27,6 +28,7 @@ async function applyPreferences() {
         data.NTClock.secondClockActive = prefs.generalPreferences.secondClockVisible;
         data.NTClock.militaryTime = prefs.generalPreferences.militaryTime;
         data.NTClock.borderVisible = prefs.generalPreferences.borderVisible;
+        clockAllowed = prefs.generalPreferences.animatedBlink;
     } catch (err) {
         Neo.printError("'pref.json' is incorrect defined. Some preferences may not work."); return;
     }
@@ -55,7 +57,7 @@ async function initializeDisplay() {
 
 async function updateApp() {
     setInterval(function() {
-        clock = !clock;
+        if (clockAllowed) clock = !clock;
         Neo.updateClock();
         data.terminal.screen.render();
     }, 1000)   

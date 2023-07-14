@@ -4,8 +4,9 @@
         "borderVisible": false,
         "secondsVisible": false,
         "secondClockVisible": false,
-        "alarmAudioFile": "alarm.wave",
-        "audibleTickingSound": true
+        "alarmAudioFile": "alarm.wav",
+        "audibleTickingSound": true,
+        "animatedBlink": true
     },
     "primaryClockPreferences": {
         "COLOR": "#00AAFF",
