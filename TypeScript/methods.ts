@@ -1,5 +1,5 @@
 import * as _ from './storage';
-import { NTClock, NTAlarm, clockFace, clockStatus, secondFace } from './storage';
+import { NTClock, NTAlarm, clockFace, clockStatus, secondFace, alertBox } from './storage';
 import { primaryLocation, secondaryLocation, boundingBox, terminal } from './storage'; 
 import { clock } from './index'
 const mtz= require('moment-timezone');
@@ -7,6 +7,8 @@ const mtz= require('moment-timezone');
 //////////////////////
 /////* Internal */////
 //////////////////////
+
+let ErrorString:string = '';
 
 function createTimeString(...arr: string[][]) {
     let result: string = '';
@@ -37,11 +39,7 @@ function string2display(time:string) {
 /////* External */////
 //////////////////////
 
-export function printError(msg:string) {
-    terminal.destroy()
-    console.log(`\u001b[31mERROR:\u001b[0m ${msg}`);
-    process.exit(0);
-}
+export function printError(msg:string) { ErrorString = msg; }
 
 export function updateClock() {
     
@@ -54,7 +52,7 @@ export function updateClock() {
     let alarmStatus = `Alarm: ${NTAlarm.timerSet ? 'tba' : 'Not Set'}`;
     let todaysDate = mtz().tz(NTClock.primaryZone).format('dddd, MMMM Do, YYYY');
 
-    clockFace.content = createTimeString(...currentTime);
+    clockFace.setText(createTimeString(...currentTime));
     clockFace.style.fg = NTClock.clockColor;
     primaryLocation.content = NTClock.primaryZone;
 
@@ -62,7 +60,7 @@ export function updateClock() {
     if (NTClock.secondClockActive) {
         displayTime = mtz().tz(NTClock.secondaryZone).format(format);
         currentTime = string2display(displayTime);
-        secondFace.content = createTimeString(...currentTime);
+        secondFace.setText(createTimeString(...currentTime));
         secondFace.style.fg = NTClock.secondClockColor;
         secondaryLocation.content = NTClock.secondaryZone;
     }
@@ -70,4 +68,7 @@ export function updateClock() {
     // Alarm and Timer
     clockStatus.content = ` ${timerStatus} | ${alarmStatus} | ${todaysDate} `;
 
+    // AlertBox
+    if (ErrorString) alertBox.setText(`Warning: ${ErrorString} (Press O to dismiss)`);
+    else if (ErrorString == '') alertBox.setText('')
 }

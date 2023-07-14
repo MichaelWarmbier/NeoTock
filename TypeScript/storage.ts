@@ -16,12 +16,12 @@ export let NTAlarm = {
 
 export let NTClock = {
     clockType: 'default',
-    clockColor: 'cyan',
-    secondClockColor: 'cyan',
-    displaySeconds: true,
+    clockColor: 'white',
+    secondClockColor: 'white',
+    displaySeconds: false,
     primaryZone: 'America/New_York',
     secondaryZone: 'America/Chicago',
-    secondClockActive: true,
+    secondClockActive: false,
     militaryTime: false,
     borderVisible: false,
 }
@@ -144,6 +144,7 @@ export let secondFace:any;
 export let primaryLocation:any;
 export let secondaryLocation:any;
 export let clockStatus:any;
+export let alertBox:any;
 
 export async function initializeDisplayElements() {
     
@@ -193,6 +194,15 @@ export async function initializeDisplayElements() {
         left: 'center',
         style: {
             fg: 'white',
+        },
+    })
+
+    alertBox = blessed.text({
+        content: '',
+        top: -5,
+        left: 'center',
+        style: {
+            fg: 'yellow',
         },
     })
 

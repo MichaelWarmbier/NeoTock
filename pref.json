@@ -1,16 +1,18 @@
 {
     "generalPreferences": {
-        "militaryTime": true,
+        "militaryTime": false,
         "borderVisible": false,
-        "secondsVisible": true,
-        "secondClockVisible": false
+        "secondsVisible": false,
+        "secondClockVisible": false,
+        "alarmAudioFile": "alarm.wave",
+        "audibleTickingSound": true
     },
     "primaryClockPreferences": {
-        "COLOR": "#FF0000",
-        "ZONE": "America/New_York"
+        "COLOR": "#00AAFF",
+        "ZONE": "America/Chicago"
     },
     "secondaryClockPreferences": {
-        "COLOR": "#00FF00",
-        "ZONE": "America/Chicago"
+        "COLOR": "#00AAFF",
+        "ZONE": "America/New_York"
     }
 }

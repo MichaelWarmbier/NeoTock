@@ -9,9 +9,18 @@ This application was inspired heavily by [Tock by nwtnni](https://github.com/nwt
 ## <p align="center">Package Dependencies </p>
 
 * [blessed](https://www.npmjs.com/package/blessed) v.0.1.81
-8 [@types/blessed](https://www.npmjs.com/package/@types/blessed?activeTab=readme) TSv0.1.22
+* [@types/blessed](https://www.npmjs.com/package/@types/blessed?activeTab=readme) TSv0.1.22
 * [typescript](https://www.npmjs.com/package/moment-timezone) v5.1.6
 * [moment-timezone](https://www.npmjs.com/package/moment-timezone) v0.5.43
+
+## <p align="center">Current Features</p>
+
+* An accurate and low powered clock with options for military time and second display.
+* Up to two clocks supported per running application.
+
+##### <p align="center"> Feature list not final, more to be added</p>
+
 <hr>
+
 
 ### <p align="center">More information will be added as development continues. </p>
