@@ -5,13 +5,13 @@ import * as blessed from 'blessed';
 //////////////////////
 
 export let NTAlarm = {
-    alarmSet: false,
     timerSet: false,
-    alarmMet: true,
-    alarmThresh: 0,
+    alarmThresh: '',
     alarmDismissed: true,
     timerStart: false,
     timerDuration:  0,
+    alarmMet: false,
+    audioPath: 'Audio/alarm.mp3'
 }
 
 export let NTClock = {

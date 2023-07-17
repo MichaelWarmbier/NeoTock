@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/blessed": "^0.1.22",
     "moment-timezone": "^0.5.43",
+    "speaker": "^0.5.4",
     "typescript": "^5.1.6"
   },
   "dependencies": {

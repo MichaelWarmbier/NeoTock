@@ -14,6 +14,12 @@ export let clock:boolean = true;
 let clockAllowed = true;
 
 async function applyPreferences() {
+
+    const args = process.argv;
+
+    if (args.indexOf('-a') != -1) data.NTAlarm.alarmThresh = args[args.indexOf('-a') + 1];
+    if (args.indexOf('-alarm') != -1) data.NTAlarm.alarmThresh = args[args.indexOf('-alarm') + 1];
+
     let prefs: any, json: any;
     try { json = await fs.promises.readFile('pref.json', 'utf8'); } 
     catch (err) { Neo.printError("'prefs.json' can not be found. Defaults will be used."); return; }
@@ -28,6 +34,7 @@ async function applyPreferences() {
         data.NTClock.secondClockActive = prefs.generalPreferences.secondClockVisible;
         data.NTClock.militaryTime = prefs.generalPreferences.militaryTime;
         data.NTClock.borderVisible = prefs.generalPreferences.borderVisible;
+        data.NTAlarm.audioPath = 'Audio/' + prefs.generalPreferences.alarmAudioFile;
         clockAllowed = prefs.generalPreferences.animatedBlink;
     } catch (err) {
         Neo.printError("'pref.json' is incorrect defined. Some preferences may not work."); return;
@@ -38,7 +45,10 @@ async function initializeDisplay() {
     process.stdout.write('\u001b[?25l');
     data.terminal.on('keypress', () => {  });
     data.terminal.key(['C-c'], () => { process.exit(0); })
-    data.terminal.key(['o'], () => { Neo.printError(''); })
+    data.terminal.key(['o'], () => { 
+        Neo.printError('');
+        data.NTAlarm.alarmDismissed = true;
+    })
 
     data.boundingBox.append(data.secondFace);
     data.boundingBox.append(data.clockFace);

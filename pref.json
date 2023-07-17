@@ -3,9 +3,8 @@
         "militaryTime": false,
         "borderVisible": false,
         "secondsVisible": false,
-        "secondClockVisible": false,
-        "alarmAudioFile": "alarm.wav",
-        "audibleTickingSound": true,
+        "secondClockVisible": true,
+        "alarmAudioFile": "alarm.pcm",
         "animatedBlink": true
     },
     "primaryClockPreferences": {
