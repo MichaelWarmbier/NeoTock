@@ -8,11 +8,11 @@
         "animatedBlink": true
     },
     "primaryClockPreferences": {
-        "COLOR": "#00AAFF",
-        "ZONE": "America/Chicago"
+        "COLOR": "#FFFFFF",
+        "ZONE": "America/New_York"
     },
     "secondaryClockPreferences": {
-        "COLOR": "#00AAFF",
-        "ZONE": "America/New_York"
+        "COLOR": "#FFFFFFF",
+        "ZONE": "America/Chicago"
     }
 }
