@@ -20,6 +20,8 @@ async function applyPreferences() {
     if (args.indexOf('-a') != -1) data.NTAlarm.alarmThresh = args[args.indexOf('-a') + 1];
     if (args.indexOf('-alarm') != -1) data.NTAlarm.alarmThresh = args[args.indexOf('-alarm') + 1];
 
+    if (data.NTAlarm.alarmThresh[1] == ':') data.NTAlarm.alarmThresh = '0' + data.NTAlarm.alarmThresh;
+
     let prefs: any, json: any;
     try { json = await fs.promises.readFile('pref.json', 'utf8'); } 
     catch (err) { Neo.printError("'prefs.json' can not be found. Defaults will be used."); return; }

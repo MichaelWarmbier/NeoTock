@@ -112,7 +112,7 @@ You can set an alarm by using arguments; either `-a` or `-alarm`.
 neotock -a "05:00 PM"
 ```
 
-**NOTE**: if you are using military time in the `pref.json` file, the format will be `hh:mm`, where the string _must_ by five characters long. Example: `03:45`. However, if you're using normal time, then you must use the following format: `hh:mm TT`. Example: `09:00 PM`.
+**NOTE**: if you are using military time in the `pref.json` file, the format will be `hh:mm`. Example: `03:45`. If you're using normal time, then you must use the following format: `hh:mm TT`. Example: `09:00 PM`.
 
 <br>
 <hr>

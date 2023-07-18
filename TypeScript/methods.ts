@@ -92,8 +92,6 @@ export function updateClock() {
         printError('Alarm argument not in military time format! Example: 05:23')
     if (((!NTAlarm.alarmThresh.includes('AM') && !NTAlarm.alarmThresh.includes('PM')) && !NTClock.militaryTime))
         printError('Alarm is not in normal time format! Example: 03:40 PM')
-    else if (!NTClock.militaryTime && NTAlarm.alarmThresh.length != 8)
-        printError('Alarm is not in normal time format! Example: 04:21 PM')
         
 }
 

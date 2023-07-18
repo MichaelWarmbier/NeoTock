@@ -3,7 +3,7 @@
         "militaryTime": false,
         "borderVisible": false,
         "secondsVisible": false,
-        "secondClockVisible": true,
+        "secondClockVisible": false,
         "alarmAudioFile": "alarm.pcm",
         "animatedBlink": true
     },
