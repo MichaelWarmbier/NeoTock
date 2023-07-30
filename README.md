@@ -23,7 +23,8 @@ This application was inspired heavily by [Tock by nwtnni](https://github.com/nwt
 
 * An accurate and low powered clock with options for military time and second display.
 * Up to two clocks supported per running application.
-* An adjustable and automatic alarm with customizable audio.
+* An easy to use alarm with customizable audio.
+* An easy to use timer with customizable audio.
 
 ##### <p align="center"> Feature list not final, more to be added</p>
 
@@ -86,6 +87,9 @@ Below is each option and what it does:
 `ZONE`: the name of the timezone the clock will associate with. <br>
 **Default**: `America/New_York` OR `America/Chicago`
 
+`"snoozeDurationMinutes`: the duration (in minutes) the alarm will be snoozed when using this function. <br>
+**Default**: `1`
+
 
 <br>
 <hr>
@@ -106,13 +110,29 @@ console.log(moment.tz.names());
 
 ### <p align="center">Setting an Alarm</p>
 
-You can set an alarm by using arguments; either `-a` or `-alarm`.
+You can set an alarm by using the `-a` argument.
 
 ```
 neotock -a "05:00 PM"
 ```
 
 **NOTE**: if you are using military time in the `pref.json` file, the format will be `hh:mm`. Example: `03:45`. If you're using normal time, then you must use the following format: `hh:mm TT`. Example: `09:00 PM`.
+<br>
+**NOTE**: The snooze feature is currently being reworked and will not function.
+
+
+<br>
+<hr>
+
+### <p align="center">Setting a Timer</p>
+
+You can set a timer by using the `-t` argument, followed by another for hours `-h` and minutes `-m`.
+
+```
+neotock -t -h 3 -m 30
+```
+
+This will set a timer for three hours and thirty minutes from now.
 
 <br>
 <hr>

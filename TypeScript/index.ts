@@ -17,8 +17,20 @@ async function applyPreferences() {
 
     const args = process.argv;
 
+    // Alarm Argument Handle
     if (args.indexOf('-a') != -1) data.NTAlarm.alarmThresh = args[args.indexOf('-a') + 1];
-    if (args.indexOf('-alarm') != -1) data.NTAlarm.alarmThresh = args[args.indexOf('-alarm') + 1];
+
+    // Timer Argument Handle
+    if (args.indexOf('-t') != -1) {
+        if (args.indexOf('-m') != -1 || args.indexOf('-h')) {
+            let duration:number = args.indexOf('-m') != -1 ? parseInt(args[args.indexOf('-m') + 1]) : 0;
+            duration += 60 * (args.indexOf('-h') != -1 ? parseInt(args[args.indexOf('-h') + 1]) : 0);
+            data.NTAlarm.timerDuration = duration * 60000;
+            data.NTAlarm.timerSet = true;
+            Neo.setTimer(data.NTAlarm.timerDuration);
+        }
+        else Neo.printError("Incorrect timer arguments. Timer not set.");
+    } 
 
     if (data.NTAlarm.alarmThresh[1] == ':') data.NTAlarm.alarmThresh = '0' + data.NTAlarm.alarmThresh;
 
@@ -37,6 +49,7 @@ async function applyPreferences() {
         data.NTClock.militaryTime = prefs.generalPreferences.militaryTime;
         data.NTClock.borderVisible = prefs.generalPreferences.borderVisible;
         data.NTAlarm.audioPath = 'Audio/' + prefs.generalPreferences.alarmAudioFile;
+        data.NTAlarm.snoozeDuration = prefs.generalPreferences.snoozeDurationMinutes * 4000;
         clockAllowed = prefs.generalPreferences.animatedBlink;
     } catch (err) {
         Neo.printError("'pref.json' is incorrect defined. Some preferences may not work."); return;
@@ -49,7 +62,22 @@ async function initializeDisplay() {
     data.terminal.key(['C-c'], () => { process.exit(0); })
     data.terminal.key(['o'], () => { 
         Neo.printError('');
+        if (data.NTAlarm.timerMet) data.NTAlarm.timerMet = false;
+        if (data.NTAlarm.alarmThresh) { 
+            data.NTAlarm.alarmThresh = '';
+            data.NTAlarm.alarmMet = false;
+        }
         data.NTAlarm.alarmDismissed = true;
+
+    })
+    data.terminal.key(['p'], () => { 
+        /*
+        Neo.printError('');
+        if (data.NTAlarm.timerMet) return;
+        data.NTAlarm.alarmDismissed = true;
+        data.NTAlarm.alarmMet = true;
+        if (data.NTAlarm.alarmMet) Neo.setTimer(data.NTAlarm.snoozeDuration)
+        */
     })
 
     data.boundingBox.append(data.secondFace);
@@ -81,9 +109,9 @@ async function updateApp() {
 
 async function main() {
     await applyPreferences();
-    await data.initializeDisplayElements();
-    await initializeDisplay();
-    await updateApp();
+    data.initializeDisplayElements();
+    initializeDisplay();
+    updateApp();
 }
 
 main();

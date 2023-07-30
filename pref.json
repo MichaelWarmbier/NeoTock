@@ -2,10 +2,11 @@
     "generalPreferences": {
         "militaryTime": false,
         "borderVisible": false,
-        "secondsVisible": false,
+        "secondsVisible": true,
         "secondClockVisible": false,
         "alarmAudioFile": "alarm.pcm",
-        "animatedBlink": true
+        "animatedBlink": true,
+        "snoozeDurationMinutes": 1
     },
     "primaryClockPreferences": {
         "COLOR": "#FFFFFF",
