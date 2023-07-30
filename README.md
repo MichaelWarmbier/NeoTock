@@ -76,6 +76,9 @@ Below is each option and what it does:
 `alarmAudioFile`: the name of the audio file in the `.\Audio` folder to use (on loop) as the alarm sound. As of right now this _must_ be in the `.pcm` format. <br>
 **Default**: `alarm.pcm`
 
+`snoozeDurationMinutes`: the duration (in minutes) the alarm will be snoozed when using this function. <br>
+**Default**: `1`
+
 `animatedBlink`: whether or not the time separators (colons) will blink. <br>
 **Default**: `false` (boolean)
 
@@ -86,10 +89,6 @@ Below is each option and what it does:
 
 `ZONE`: the name of the timezone the clock will associate with. <br>
 **Default**: `America/New_York` OR `America/Chicago`
-
-`"snoozeDurationMinutes`: the duration (in minutes) the alarm will be snoozed when using this function. <br>
-**Default**: `1`
-
 
 <br>
 <hr>

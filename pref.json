@@ -2,7 +2,7 @@
     "generalPreferences": {
         "militaryTime": false,
         "borderVisible": false,
-        "secondsVisible": true,
+        "secondsVisible": false,
         "secondClockVisible": false,
         "alarmAudioFile": "alarm.pcm",
         "animatedBlink": true,

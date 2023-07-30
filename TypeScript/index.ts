@@ -71,13 +71,11 @@ async function initializeDisplay() {
 
     })
     data.terminal.key(['p'], () => { 
-        /*
         Neo.printError('');
         if (data.NTAlarm.timerMet) return;
         data.NTAlarm.alarmDismissed = true;
         data.NTAlarm.alarmMet = true;
         if (data.NTAlarm.alarmMet) Neo.setTimer(data.NTAlarm.snoozeDuration)
-        */
     })
 
     data.boundingBox.append(data.secondFace);

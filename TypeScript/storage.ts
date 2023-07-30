@@ -12,7 +12,7 @@ export let NTAlarm = {
     alarmMet: false,
     timerMet: false,
     audioPath: 'Audio/alarm.mp3',
-    snoozeDuration: 180000,
+    snoozeDuration: 180000
 }
 
 export let NTClock = {

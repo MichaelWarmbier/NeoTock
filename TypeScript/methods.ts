@@ -67,6 +67,7 @@ export function setTimer(seconds:number) {
         NTAlarm.timerMet = true;
         playAlarm();
     }, seconds)
+
 }
 
 export function printError(msg:string) { ErrorString = msg; }
@@ -108,7 +109,7 @@ export function updateClock() {
         playAlarm();
     } 
 
-    clockStatus.content = `${timerStatus} | ${snoozedStatus} | ${alarmStatus} | ${todaysDate} `;
+    clockStatus.content = `${timerStatus} | ${alarmStatus} | ${snoozedStatus} | ${todaysDate} `;
 
     // AlertBox
     if (ErrorString) alertBox.setText(`Warning: ${ErrorString} (Press O to dismiss)`);
