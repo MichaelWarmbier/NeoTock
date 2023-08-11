@@ -14,12 +14,39 @@ let ErrorString:string = '';
 
 function createTimeString(...arr: string[][]) {
     let result: string = '';
-    for (let i = 0; i < _.dH; i++) {
-        for (let j = 0; j < arr.length; j++)
-            result += arr[j][i];
+    for (let y = 0; y < _.dH; y++) {
+        for (let x = 0; x < arr.length; x++)
+            result += arr[x][y];
         result += '\n';
     }
     return result;
+}
+
+
+function addTimeToString(time:string, offset:number) {
+    if (offset > 60) offset = 60;
+
+    const TOD = time.includes('AM');
+    const hours = parseInt(time[0] + time[1]);
+    const minutes = parseInt(time[3] + time[4]);
+
+    let newMinutes:string = ((minutes + offset) % 60).toString();
+    let newHours:string = (hours + Math.floor((minutes + offset) / 60)).toString();
+  
+    if (NTClock.militaryTime && parseInt(newHours) >= 24) newHours = (parseInt(newHours) % 24).toString();
+    if (!NTClock.militaryTime && parseInt(newHours) > 12) newHours = (parseInt(newHours) % 12).toString();
+    if (!NTClock.militaryTime && parseInt(newHours) >= 12) {
+      if (TOD)   time = time.replace('AM', 'PM');
+      else       time = time.replace('PM', 'AM');
+    }
+
+    if (newMinutes.length == 1) newMinutes = newMinutes.replace(/^/, '0');
+    if (newHours.length == 1) newHours = newHours.replace(/^/, '0');
+
+    time = time.replace(minutes.toString(), newMinutes);
+    time = time.replace(hours.toString(), newHours);
+  
+    return time;
 }
 
 function string2display(time:string) {
